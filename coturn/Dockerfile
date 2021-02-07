@@ -6,7 +6,7 @@ RUN apt-get update
 
 #RUN systemctl enable coturn
 
-RUN apt-get -y install systemd sudo wget gcc make git sqlite libsqlite3-dev libssl-dev libevent-dev libhiredis-dev libmysqlclient-dev libpq-dev
+RUN apt-get -y install systemd sudo wget gcc make git sqlite libsqlite3-dev libssl-dev libevent-dev libhiredis-dev default-libmysqlclient-dev libpq-dev
 
 RUN cd /tmp
 
