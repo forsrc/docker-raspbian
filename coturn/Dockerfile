@@ -38,7 +38,7 @@ RUN turnadmin -a -u forsrc -p forsrc -r coturn.forsrc.com && turnadmin -l
 RUN turnadmin -A -u forsrc -p forsrc -r coturn.forsrc.com && turnadmin -L
 
 WORKDIR ~
-RUN echo "/usr/bin/turnserver -c /etc/turnserver.conf --pidfile /run/turnserver/turnserver.pid" > start_coturn.sh
+RUN echo "/usr/bin/turnserver -c /etc/turnserver.conf --pidfile /run/turnserver/turnserver.pid -f -v -a" > start_coturn.sh
 RUN echo "kill \$(cat /run/turnserver/turnserver.pid)" > stop_coturn.sh
 RUN chmod +x *.sh
 
