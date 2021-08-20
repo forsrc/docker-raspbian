@@ -10,20 +10,21 @@ RUN apt-get install -y gitlab-ce
 
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-RUN cat > /endpoint.sh <<EOF 
-#!/bin/sh
-if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then
-    gitlab-ctl reconfigure
-    systemctl enable gitlab-runsvdir.service
-    systemctl start gitlab-runsvdir.service
-fi
-exec "$@"
-EOF
+RUN echo ' \n\
+if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then \n\
+    gitlab-ctl reconfigure \n\
+    systemctl enable gitlab-runsvdir.service \n\
+    systemctl start gitlab-runsvdir.service \n\
+fi \n\
+/opt/gitlab/embedded/bin/runsvdir-start' > /endpoint.sh
 
+RUN chmod +x /endpoint.sh
+
+RUN cat /endpoint.sh
 #VOLUME /etc/gitlab
 VOLUME /var/log/gitlab
 VOLUME /var/opt/gitlab/git-data
 
 EXPOSE 443 80 22
 
-ENTRYPOINT ["/endpoint.sh"]
+CMD ["/endpoint.sh"]
