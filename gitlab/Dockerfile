@@ -21,8 +21,6 @@ fi
 exec "$@"
 EOF
 
-RUN gitlab-ctl reconfigure
-RUN systemctl enable gitlab-runsvdir.service
 
 #VOLUME /etc/gitlab
 VOLUME /var/log/gitlab
