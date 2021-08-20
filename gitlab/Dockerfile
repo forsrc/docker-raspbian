@@ -10,17 +10,15 @@ RUN apt-get install -y gitlab-ce
 
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-RUN cat > > /endpoint.sh <<EOF 
+RUN cat > /endpoint.sh <<EOF 
 #!/bin/sh
 if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then
     gitlab-ctl reconfigure
     systemctl enable gitlab-runsvdir.service
     systemctl start gitlab-runsvdir.service
 fi
-
 exec "$@"
 EOF
-
 
 #VOLUME /etc/gitlab
 VOLUME /var/log/gitlab
