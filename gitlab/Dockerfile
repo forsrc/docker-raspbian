@@ -16,12 +16,8 @@ systemctl unmask systemd-logind \n\
 if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then \n\
     echo ================= \n\
     gitlab-ctl reconfigure & \n\
-    sleep 30 \n\
-    pkill gitlab-ctl \n\
-    gitlab-ctl reconfigure \n\
+    sleep 120 \n\
     systemctl enable gitlab-runsvdir.service \n\
-    systemctl start gitlab-runsvdir.service \n\
-    gitlab-ctl start \n\
     echo ================= \n\
 fi \n\
 #/opt/gitlab/embedded/bin/runsvdir-start \n\
