@@ -13,14 +13,18 @@ RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,
 RUN echo ' \n\
 systemctl mask systemd-firstboot.service systemd-udevd.service systemd-modules-load.service \n\
 systemctl unmask systemd-logind \n\
-if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then \n\
-    echo ================= \n\
-    gitlab-ctl reconfigure & \n\
-    sleep 120 \n\
-    systemctl enable gitlab-runsvdir.service \n\
-    echo ================= \n\
-fi \n\
-#/opt/gitlab/embedded/bin/runsvdir-start \n\
+if [ ! -f /opt/gitlab/init ]; then
+    echo =================
+    gitlab-ctl reconfigure &
+    sleep 120
+    echo =================
+    gitlab-ctl start
+    touch /opt/gitlab/init
+    echo =================
+fi
+echo start ... \n\
+/opt/gitlab/embedded/bin/runsvdir-start & \n\
+
 if [[  "$@" != "" ]] ; then \n\
     exec "$@" \n\
 else \n\
