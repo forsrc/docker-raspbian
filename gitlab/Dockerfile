@@ -6,7 +6,7 @@ RUN apt-get install -y curl
 
 RUN curl -s https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | bash
 
-RUN apt-get install -y gitlab-ce
+RUN apt-get install -y runit-systemd gitlab-ce
 
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
