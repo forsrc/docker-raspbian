@@ -13,13 +13,13 @@ RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,
 RUN echo ' \n\
 systemctl mask systemd-firstboot.service systemd-udevd.service systemd-modules-load.service \n\
 systemctl unmask systemd-logind \n\
-if [ ! -f /opt/gitlab/init ]; then
+if [ ! -f /opt/gitlab/dind_init ]; then
     echo =================
     gitlab-ctl reconfigure &
     sleep 120
     echo =================
     gitlab-ctl start
-    touch /opt/gitlab/init
+    touch /opt/gitlab/dind_init
     echo =================
 fi
 echo start ... \n\
