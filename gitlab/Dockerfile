@@ -11,9 +11,7 @@ RUN apt-get install -y runit-systemd gitlab-ce
 RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN echo ' \n\
-systemctl mask systemd-firstboot.service \n\
-systemd-udevd.service \n\
-systemd-modules-load.service \n\
+systemctl mask systemd-firstboot.service systemd-udevd.service systemd-modules-load.service \n\
 systemctl unmask systemd-logind \n\
 if [ ! -f /usr/lib/systemd/system/gitlab-runsvdir.service ]; then \n\
     echo ================= \n\
