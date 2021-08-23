@@ -23,7 +23,7 @@ if [ ! -f /opt/gitlab/dind_init ]; then
     echo =================
 fi
 echo start ... \n\
-/opt/gitlab/embedded/bin/runsvdir-start & \n\
+(sleep 3 && /opt/gitlab/embedded/bin/runsvdir-start) & \n\
 
 if [[  "$@" != "" ]] ; then \n\
     exec "$@" \n\
